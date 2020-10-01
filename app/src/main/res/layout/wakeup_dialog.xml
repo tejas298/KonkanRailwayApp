@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/segoeui"
+        android:text="Step for activating Wake-up Alarm on 139 IVR"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1) Dial 139 from the mobile you want to set Wake up Alarm."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2) Choose your preferred language."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3) Select option 7 from the IVR main menu."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4) Press 1 for wake-up Alarm."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5) Enter your 10 digit PNR number."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="6) Press 1 to confirm your PNR number."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="7) Enter STD code on which you want to activate your wake-up alarm on Press (*) to contact our customer care executive."
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:layout_gravity="start"
+        android:fontFamily="@font/century_gothic"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        >
+<!--
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wakeUpCallSMS"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="#8BC34A"
+            android:text="Send SMS"
+            android:textStyle="bold"
+            android:fontFamily="@font/century_gothic"
+            android:textColor="#ffffff"
+            android:layout_margin="5dp"/>-->
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wakeUpCallDialog"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="#FFC107"
+            android:layout_margin="5dp"
+            android:text="OK"
+            android:textStyle="bold"
+            android:fontFamily="@font/century_gothic"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</LinearLayout>

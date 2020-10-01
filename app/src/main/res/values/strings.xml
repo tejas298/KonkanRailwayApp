@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Konkan Railway</string>
+    <string name="title_activity_train_schedule">TrainSchedule</string>
+    <string name="tab_text_1">Train Schedule</string>
+    <string name="tab_text_2">Special Trains</string>
+    <string name="string_dialog">Updating...</string>
+</resources>
