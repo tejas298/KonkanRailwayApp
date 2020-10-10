@@ -1,5 +1,6 @@
 package com.stejavu.konkanrailwayapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -8,6 +9,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -36,6 +38,8 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
     TextView train, dateText, runsOn;
+    AlertDialog.Builder alertDialog;
+    AlertDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +53,17 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
         train = findViewById(R.id.realTrainText);
         dateText = findViewById(R.id.realDateText);
         runsOn = findViewById(R.id.realRunsText);
+
+        alertDialog = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        //alertDialog.setView(R.layout.loading_dialog);
+
+        alertDialog.setView(inflater.inflate(R.layout.loading_dialog, null));
+        alertDialog.setCancelable(false);
+
+        dialog = alertDialog.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
 
         // Instantiate the cache
         Cache cache = new DiskBasedCache(getCacheDir(), 1024 * 1024); // 1MB cap
@@ -172,6 +187,8 @@ public class ScheduleDetailsActivity extends AppCompatActivity {
                             tl.addView(tr, new TableLayout.LayoutParams(TableLayout.LayoutParams.FILL_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
                         }
                         /* table building end  */
+
+                        dialog.cancel();
                     }
                 },
                 new Response.ErrorListener() {

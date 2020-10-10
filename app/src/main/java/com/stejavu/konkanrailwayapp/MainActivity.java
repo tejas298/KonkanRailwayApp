@@ -1,12 +1,13 @@
 package com.stejavu.konkanrailwayapp;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkCapabilities;
@@ -15,6 +16,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -75,11 +77,11 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerCustomAdapter adapter;
     ArrayList<RecyclerDataModel> recyclerDataModel = new ArrayList<>();
-    int[] images = {R.drawable.calendar,R.drawable.loc1, R.drawable.chair, R.drawable.helpline, R.drawable.news, R.drawable.aboutus};
-    String[] contentArray = {"Trains Timetable","Live Train Status On KR Route","Seat Availability / PNR Status","Passenger Amenities",
-                                "Press Release", "Know More About Us"};
-    String[] descriptionArray = {"11:20 AM","Reached / Running / Delay","Check Seat Availability", "Helpline Numbers",
-                                    "Latest Information Released","About Us"};
+    int[] images = {R.drawable.calendar, R.drawable.loc1, R.drawable.chair, R.drawable.helpline, R.drawable.news, R.drawable.aboutus};
+    String[] contentArray = {"Trains Timetable", "Live Train Status On KR Route", "Seat Availability / PNR Status", "Passenger Amenities",
+            "Press Release", "Know More About Us"};
+    String[] descriptionArray = {"11:20 AM", "Reached / Running / Delay", "Check Seat Availability", "Helpline Numbers",
+            "Latest Information Released", "About Us"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
             recyclerDataModel.add(new RecyclerDataModel(
                     contentArray[i],
                     images[i],
-                   descriptionArray[i]
+                    descriptionArray[i]
             ));
         }
 
@@ -117,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        Date dNow = new Date( );
+        Date dNow = new Date();
         SimpleDateFormat ft =
-                new SimpleDateFormat ("yyyy.MM.dd", Locale.UK);
+                new SimpleDateFormat("yyyy.MM.dd", Locale.UK);
         //Toast.makeText(this,ft.format(dNow),Toast.LENGTH_SHORT).show();
         String date = ft.format(dNow);
         if (!settings.getString("date", "").contains(date)) {
 
-            if(isNetworkAvailable(this.getApplication())) {
+            if (isNetworkAvailable(this.getApplication())) {
                 // record the fact that the app has been started at least once
                 settings.edit().putString("date", date).apply();
                 //Toast.makeText(this,"Date changed",Toast.LENGTH_SHORT).show();
@@ -134,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-        if(db.trainDao().getAlltrain("NORM").size() == 0){
+        if (db.trainDao().getAlltrain("NORM").size() == 0) {
             //db.trainDao().deleteAll();
             doDBReady();
         }
@@ -185,17 +187,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        /*
+        AsyncTaskRunner runner = new AsyncTaskRunner();
+        String sleepTime = "5";
+        runner.execute(sleepTime);
+        */
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog;
+
+        builder.setMessage("Exit the application ? ")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+        dialog = builder.create();
+        dialog.show();
+
+        //super.onBackPressed();
+
+
     }
 
-    public void doDBReady(){
+    public void doDBReady() {
         RequestQueue requestQueue;
 
         // Instantiate the cache
@@ -222,18 +250,18 @@ public class MainActivity extends AppCompatActivity {
                         String mainText = sel.wholeText();
                         String[] arr = mainText.split("\n");
                         int index = trainList.size();
-                        for(String ar : arr){
+                        for (String ar : arr) {
                             ar = ar.trim();
 
-                            if(!ar.isEmpty())
-                                if(!ar.contains("Select Category")) {
+                            if (!ar.isEmpty())
+                                if (!ar.contains("Select Category")) {
                                     Train train = new Train();
                                     train.name = ar;
                                     train.type = "NORM";
                                     train.id = index++;
                                     trainList.add(train);
                                     db.trainDao().insertAll(train);
-                            }
+                                }
                         }
 
 
@@ -256,11 +284,11 @@ public class MainActivity extends AppCompatActivity {
                         String mainText = sel.wholeText();
                         String[] arr = mainText.split("\n");
                         int index = trainList.size();
-                        for(String ar : arr){
+                        for (String ar : arr) {
                             ar = ar.trim();
 
-                            if(!ar.isEmpty())
-                                if(!ar.contains("Select Category")) {
+                            if (!ar.isEmpty())
+                                if (!ar.contains("Select Category")) {
                                     Train train = new Train();
                                     train.name = ar;
                                     train.type = "SPEC";
@@ -270,7 +298,7 @@ public class MainActivity extends AppCompatActivity {
                                 }
                         }
 
-                        Toast.makeText(getApplicationContext(),"Second request "+arr[2],Toast.LENGTH_LONG).show();
+                        //Toast.makeText(getApplicationContext(),"Second request "+arr[2],Toast.LENGTH_LONG).show();
 
                         //addToRoom();
                     }
@@ -303,26 +331,27 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onPause() {
 
-            stopad();
+        stopad();
 
         super.onPause();
     }
 
+
+
     @Override
     protected void onResume() {
 
-            if (executorService.isShutdown()) {
-                scheduleAd();
-            }
+        if (executorService.isShutdown()) {
+            scheduleAd();
+        }
 
         super.onResume();
     }
 
-    public void scheduleAd(){
+    public void scheduleAd() {
         executorService =
                 Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(new Runnable() {
@@ -331,28 +360,28 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(mInterstitialAd.isLoaded()){
+                        if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
-                        }else{
-                            Log.d("ad","Not loaded");
+                        } else {
+                            Log.d("ad", "Not loaded");
                         }
 
                         prepareAd();
                     }
                 });
             }
-        },30,30, TimeUnit.SECONDS);
+        }, 30, 30, TimeUnit.SECONDS);
 
     }
 
-    public void prepareAd(){
+    public void prepareAd() {
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-7385091305730363/1637616816");//original
-        //mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");//dummy
+        //mInterstitialAd.setAdUnitId("ca-app-pub-7385091305730363/1637616816");//original
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");//dummy
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
-    public void stopad(){
+    public void stopad() {
         executorService.shutdown();
     }
 
