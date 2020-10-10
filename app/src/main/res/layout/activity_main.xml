@@ -47,7 +47,7 @@
         android:layout_below="@+id/appBarLayout"/>
 
     <!-- test ads -->
-    <com.google.android.gms.ads.AdView
+    <!--<com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
@@ -56,10 +56,10 @@
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
+    </com.google.android.gms.ads.AdView>-->
 
     <!-- live ads  -->
-     <!--<com.google.android.gms.ads.AdView
+     <com.google.android.gms.ads.AdView
           xmlns:ads="http://schemas.android.com/apk/res-auto"
           android:id="@+id/adView"
           android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
           android:layout_alignParentBottom="true"
           ads:adSize="BANNER"
           ads:adUnitId="ca-app-pub-7385091305730363/4972542389">
-      </com.google.android.gms.ads.AdView>-->
+      </com.google.android.gms.ads.AdView>
 
 
 
